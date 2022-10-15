@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs')
 const createUserToken = require('../helpers/createUserToken') 
 const getToken = require('../helpers/getToken')
 const getUserByToken = require('../helpers/getUserByToken')
+const Post = require('../models/Posts')
 
 module.exports = class UserController{
 
@@ -69,7 +70,9 @@ module.exports = class UserController{
     const user = await User.findById(id).select('-password')
     if(!user) return res.status(422).json({message: 'Usuário não encontrado.'})
 
-    res.status(200).json({user: user})
+    const usersPost = await Post.find({'user._id': user._id}).sort('-createdAt')
+
+    res.status(200).json({user: user, posts: usersPost})
   }
 
 

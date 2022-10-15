@@ -15,8 +15,8 @@ const Post = mongoose.model('Post', new Schema({
     default: []
   },
   comments:{
-    type: String,
-    default: ''
+    type: Array,
+    default: []
   },
   user: Object
 },{timestamps: true}))
