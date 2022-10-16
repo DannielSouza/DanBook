@@ -1,0 +1,25 @@
+.success{
+  z-index: 10;
+  position: fixed;
+  top: 80px;
+  width: 100%;
+  height: 50px;
+  text-align: center;
+  background: lightgreen;
+  color: darkgreen;
+  font-weight: bold;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  animation: animaPopDown .3s forwards ease-in-out;
+}
+
+@keyframes animaPopDown {
+  from{
+    transform: translateY(-80px);
+    opacity: 0;
+  }to{
+    transform: initial;
+    opacity: initial;
+  }
+}

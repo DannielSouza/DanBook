@@ -1,0 +1,93 @@
+.container{
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 2.5fr;
+  align-items: center;
+  justify-content: center;
+}
+
+.formContainer{
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  animation: animaForm .4s forwards ease-in-out;
+}
+
+.title{
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+  color: rgba(0, 0, 0, .8);
+}
+
+.title::after{
+  content: '';
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  background: linear-gradient(145deg, #3378ff, #9442fe);
+  bottom: 9px;
+  left: 0%;
+  z-index: -1;
+  border-radius: 5px;
+  opacity: .7;
+}
+
+.formContainer input{
+  width: 80%;
+  height: 35px;
+  padding: 0 1rem;
+  margin: .5rem 0;
+  border-radius: 5px;
+  border: 1px solid #9442fe;
+  outline: none;
+  transition: .3s;
+}
+
+.formContainer input:focus{
+  box-shadow: 0 0 2px 1px #3378ff;
+}
+
+.formContainer label{
+  font-family: 'Poppins', sans-serif;
+  font-size: .9rem;
+}
+
+.formContainer button{
+  width: 80%;
+  height: 30px;
+  border: none;
+  font-weight: bold;
+  color: white;
+  margin-top: 1.5rem;
+  background: linear-gradient(145deg, #3378ff, #9442fe);
+  cursor: pointer;
+  transition: .3s ease-in-out;
+  border-radius: 5px;
+}
+
+.formContainer button:hover{
+  border-radius: 5px;
+}
+
+.dontHaveAccount{
+  margin-top: 2rem;
+}
+
+.sideImage{
+  background: linear-gradient(145deg, darkGray, lightGray);
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes animaForm {
+  from{
+    transform: translateX(-40px);
+    opacity: 0;
+  }to{
+    transform: initial;
+    opacity: initial;
+  }
+}
