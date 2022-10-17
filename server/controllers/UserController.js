@@ -1,5 +1,6 @@
 const User = require('../models/User')
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 const createUserToken = require('../helpers/createUserToken') 
 const getToken = require('../helpers/getToken')
 const getUserByToken = require('../helpers/getUserByToken')
@@ -76,6 +77,22 @@ module.exports = class UserController{
   }
 
 
+  /* CHECK WHAT USER IS USING THE PROFILE BY TOKEN */
+  static async checkUser(req, res){
+    let currentUser = null
+
+    //CHECK IF THERES AN AUTHORIZATION ON THE HEADERS
+    if(req.headers.authorization){
+      const token = getToken(req)
+      const decoded = jwt.verify(token, 'secretdanbook')
+      currentUser = await User.findById(decoded.id)
+      currentUser.password = undefined
+    }
+
+    res.status(200).send(currentUser)
+  }
+
+
   /* EDIT USER */
   static async editUser(req, res){
     const {name, email, password, confirmpassword} = req.body
@@ -91,7 +108,7 @@ module.exports = class UserController{
     if(!name) return res.status(422).json({message: 'O nome é obrigatório.'})
     if(!email) return res.status(422).json({message: 'O e-mail é obrigatório.'})
     if(password !== confirmpassword) return res.status(422).json({message: 'As senhas são diferentes.'})
-    if(password === confirmpassword && password !== null){
+    if(password === confirmpassword && password !== undefined){
       const salt = await bcrypt.genSalt(12)
       const passwordHash = await bcrypt.hash(password, salt)
 
@@ -112,6 +129,19 @@ module.exports = class UserController{
     } catch (error) {
       return res.status(500).json({message: 'Houve um erro ao atualzar os dados.'})
     }
-    
-  };
+  }
+
+
+  /* USER PROFILE */
+  static async profile(req, res){
+    const token = getToken(req)
+    const user = await getUserByToken(token)
+    user.password = undefined
+
+    if(!user) return res.status(422).json({message: 'Usuário não encontrado.'})
+
+    const usersPost = await Post.find({'user._id': user._id}).sort('-createdAt')
+
+    res.status(200).json({user: user, posts: usersPost})
+  }
 }

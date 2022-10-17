@@ -1,8 +1,8 @@
 .container{
   width: 100vw;
   height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr 2.5fr;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
@@ -36,7 +36,7 @@
 }
 
 .formContainer input{
-  width: 80%;
+  width: 85%;
   height: 35px;
   padding: 0 1rem;
   margin-bottom: 1em;
@@ -44,6 +44,15 @@
   border: 1px solid #9442fe;
   outline: none;
   transition: .3s;
+}
+
+.fileForm{
+  height: 24px !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0px !important;
+
+
 }
 
 .formContainer input:focus{
@@ -74,12 +83,6 @@
 
 .dontHaveAccount{
   margin-top: 2rem;
-}
-
-.sideImage{
-  background: linear-gradient(145deg, darkGray, lightGray);
-  width: 100%;
-  height: 100%;
 }
 
 @keyframes animaForm {

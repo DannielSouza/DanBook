@@ -14,7 +14,7 @@ const Header = () => {
         {authenticated ?
         <>
         <Link to={"/"}>Inicio</Link>
-        {/* <Link to={"/profile"}>{data.nome}</Link> */}
+        <Link to={"/profile"}>Minha conta</Link>
         <Link to={"/"} onClick={logout}>sair</Link>
         </>
         :
