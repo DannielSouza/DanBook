@@ -1,16 +1,19 @@
 import React from 'react'
-import style from '../../styles/Profile.module.css'
-/* import { Link } from "react-router-dom"; */
+import style from '../../styles/EditProfile.module.css'
 import axios from 'axios'
 import AlertMessage from '../AlertMessage'
 import SuccessMessage from '../SuccessMessage'
+import { useNavigate } from "react-router-dom";
+import {Link} from 'react-router-dom'
+
 
 const Profile = () => {
   const [user, setUser] = React.useState({})
   const [token, setToken] = React.useState(JSON.parse(localStorage.getItem('token')))
   const [error, setError] = React.useState(null)
   const [success, setSuccess] = React.useState(null)
-
+  const navigate = useNavigate()
+  
   const [preview, setPreview] = React.useState()
 
   React.useEffect(()=>{
@@ -48,7 +51,10 @@ const Profile = () => {
         'Content-Type': 'multipart/form-data'
       }
     }).then((response)=>{
-      setSuccess('Usuário atualizado com sucesso.')  
+      setSuccess('Usuário atualizado com sucesso.')
+      setTimeout(() => {
+        navigate('/profile')
+      }, 1000);  
     })
       .catch(({response})=>{
         setError(response.data.message)
@@ -66,14 +72,17 @@ const Profile = () => {
 
         <h2 className={style.title}>Minha conta</h2>
 
-        <label htmlFor='image'>Foto de perfil</label>
         {(user.image || preview) &&
-          (<img src={
-            preview
-              ? URL.createObjectURL(preview)
-              : `http://localhost:4000/images/users/${user.image}`
-          } alt='foto de perfil'/>)
+          (<div
+            className={style.userImageContainer}
+            style={preview?
+              {backgroundImage:`url(${URL.createObjectURL(preview)})`}
+              :
+              {backgroundImage:`url(http://localhost:4000/images/users/${user.image})`}}
+            ></div>)
         }
+
+        <label className={style.fileFormLabel} htmlFor='image'>Selecionar imagem</label>
         <input className={style.fileForm} type='file' name='image' id='image' value={''} onChange={userImageStateChange}/>
         
         <label htmlFor='name'>Nome</label>
@@ -89,7 +98,10 @@ const Profile = () => {
         <input type='password' name='confirmpassword' id='confirmpassword' onChange={userStateChange}/>
 
         {/* {loading?<button className='disabled'>Carregando...</button>:<button>Entrar</button>} */}
-        <button>Salvar</button>
+        <div className={style.buttonsContainer}>
+          <Link to={'/profile'}>Voltar</Link>
+          <button>Salvar</button>
+        </div>
 
       </form>
     </main>

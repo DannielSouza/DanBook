@@ -8,14 +8,16 @@ const Header = () => {
 
   return (
     <header className={style.header}>
-      <h2>DanBook</h2>
+      <Link to={'/'}><h2>DanBook</h2></Link>
 
       <nav className={style.navContainer}> 
         {authenticated ?
         <>
         <Link to={"/"}>Inicio</Link>
+        <div className={style.menuCircle}></div>
         <Link to={"/profile"}>Minha conta</Link>
-        <Link to={"/"} onClick={logout}>sair</Link>
+        <div className={style.menuCircle}></div>
+        <Link to={"/"} onClick={logout}>Sair</Link>
         </>
         :
         <>

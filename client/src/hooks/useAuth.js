@@ -56,8 +56,9 @@ export default function useAuth(){
     setTimeout(()=>{
       setAuthenticated(true)
       localStorage.setItem('token', JSON.stringify(data.token))
+      axios.defaults.headers.Authorization = `Bearer ${data.token}`
       navigate('/')
-    },2000)
+    },1000)
   }
 
   /* LOGOUT USER */
@@ -65,7 +66,7 @@ export default function useAuth(){
     setAuthenticated(false)
     window.localStorage.removeItem("token")
     axios.defaults.headers.Authorization = undefined
-    navigate('/')
+    window.location('/')
   }
 
 

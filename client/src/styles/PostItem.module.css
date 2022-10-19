@@ -1,0 +1,90 @@
+.postContainer{
+  margin-bottom: 3em;
+  background: #fafafa;
+  border-radius: 10px;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+}
+
+.contentContainer{
+  display: flex;
+  gap: 1em;
+  margin-bottom: 1em;
+}
+
+.contentInfo{
+  margin-bottom: .5em;
+  gap: .5em;
+}
+
+.contentInfo span::before{
+  content: '';
+  background: rgba(0, 0, 0, .2);
+  width: 6px;
+  height: 1px;
+  left: 0;
+  top: 8px;
+  position: absolute;
+}
+
+.contentInfo span{
+  padding-left: 8px;
+  position: relative;
+  font-size: .8em;
+  color: rgba(0, 0, 0, .5);
+}
+
+.profilePicture{
+  border: inset 1px solid rgba(0, 0, 0, .3);
+  height: 50px;
+  width: 50px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50%;
+}
+
+.postUser{
+  font-weight: bold;
+  text-transform: capitalize;
+  color: rgba(0, 0, 0, .9);
+}
+
+
+.postContent{
+  margin-bottom: 2em;
+}
+
+.postImage{
+  max-width: 600;
+  
+}
+
+.reactionsContainer{
+  display: flex;
+  margin-top: .5em;
+}
+
+.reactionsInfoContainer{
+  display: flex;
+  margin-top: .5em;
+}
+
+.reactionsInfoContainer p{
+  color: rgba(0, 0, 0, .5);
+  margin-right: .5em;
+}
+
+.reactionsContainer button{
+  padding: .5em 1em;
+  border: 1px solid #9442fe;
+  border-radius: 5px;
+  margin-right: .5em;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, .7);
+  cursor: pointer;
+  transition: .3s;
+}

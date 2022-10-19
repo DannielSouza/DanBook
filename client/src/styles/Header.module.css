@@ -10,12 +10,32 @@
   z-index: 999;
 }
 
+.header h2{
+  color: white;
+}
+
 .navContainer{
   display: flex;
 }
 
 .navContainer a{
   color: white;
-  padding: 0 .3rem;
-  margin: 0 .2rem;
+  padding: 0 .4rem;
+  margin: 0 .3rem;
+}
+
+.menuCircle{
+  position: relative;
+}
+
+.menuCircle::after{
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background-color: white;
+  color: white;
+  top: 8px;
+  left: -2px;
+  border-radius: 50%;
 }

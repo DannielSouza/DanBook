@@ -1,0 +1,43 @@
+.formContainer{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 600px;
+  padding-top: 1em;
+  margin-bottom: 2em;
+}
+
+.formInput{
+  height: 120px;
+  border: 1px solid #9442fe;
+  border-radius: 5px;
+  transition: .3s;
+  font-size: 1.1em;
+  padding: 5px;
+}
+
+.formInput:focus{
+  box-shadow: 0 0 2px 2px #3378ff;
+  outline: none;
+}
+
+.formFileContainer{
+  display: flex;
+  gap: 2em;
+  margin: .4em 0;
+}
+
+.formContainer button{
+  background: #3378ff;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: .5em 0;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.formContainer button:hover{
+  background: #9442fe;
+}

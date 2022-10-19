@@ -7,6 +7,7 @@ import Login from './components/pages/Login';
 import { UserProvider } from './context/UserContext'
 import Profile from './components/pages/Profile';
 import EditProfile from './components/pages/EditProfile';
+import PeopleProfile from './components/pages/PeopleProfile';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path='/login' element={<Login />}/>
             <Route path='/profile' element={<Profile />}/>
             <Route path='/profile/edit' element={<EditProfile />}/>
+            <Route path='/profile/:id' element={<PeopleProfile />}/>
         </Routes>
       </UserProvider>
     </BrowserRouter>

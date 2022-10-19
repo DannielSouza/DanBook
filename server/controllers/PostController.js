@@ -18,11 +18,9 @@ module.exports = class PostController{
     const post = new Post({
       content,
       image: '',
-      user:{
-        _id: user._id,
-        name: user.name,
-        image: user.image,
-      }
+      userId: user._id,
+      userName: user.name,
+      userImage: user.image
     })
 
     if(imagesForm) post.image =imagesForm.filename
@@ -31,7 +29,8 @@ module.exports = class PostController{
       const newPost = await post.save()
       return res.status(201).json({message: 'Post publicado com sucesso.', newPost})
     } catch (error) {
-      return res.status(500).json({message: 'Houve um arro ao publicar o post.'})
+        res.status(500).json({message: 'Houve um arro ao publicar o post.'})
+        return console.log(error)
     }
   }
 
@@ -39,7 +38,7 @@ module.exports = class PostController{
   /* GET ALL POSTS */
   static async getAllPosts(req, res){
     const posts = await Post.find().sort('-createdAt')
-    res.status(200).json({posts:posts})
+    res.status(200).send(posts)
   }
 
 
@@ -87,5 +86,64 @@ module.exports = class PostController{
     await Post.findByIdAndUpdate(id, updatedPost)
     return res.status(200).json({message: 'Post atualizado com sucesso.'})
   }
+
+
+  /* COMMENT A POST BY ID */
+  static async commentAPostById(req, res){
+    const {id} = req.params
+    const {comment} = req.body
+    const post = await Post.findOne({_id:id})
+
+    if(!post) return res.status(404).json({message: 'Post não encontrado.'})
+    if(!comment) return res.status(422).json({message: 'O comentário não pode ser vázio.'})
+
+    const token = getToken(req)
+    const user = await getUserByToken(token)
+
+    post.comments.push({
+      comment,
+      user:{
+        _id: user._id,
+        name: user.name,
+        image: user.image,
+      }
+    })
+
+    await Post.findByIdAndUpdate(id, post)
+    return res.status(200).json({message: 'Comentário feito com sucesso.'})
+  }
+
+
+  /* LIKE A POST BY ID */
+  static async likeAPostById(req, res){
+    const {id} = req.params
+    const post = await Post.findOne({_id:id})
+
+    const token = getToken(req)
+    const user = await getUserByToken(token)
+    
+    let userAlreadyLikedIt = false
+
+    if(!post) return res.status(404).json({message: 'Post não encontrado.'})
+      post.likes.map((item)=>{
+      if(String(item._id) === String(user._id)){
+        userAlreadyLikedIt = true
+      }
+    })
+
+    if(userAlreadyLikedIt)  return res.status(422).json({message: 'Você já curtiu essa publicação.'})
+    
+
+    post.likes.push(
+      {
+        _id: user._id,
+        name: user.name,
+        image: user.image,
+    })
+
+    await Post.findByIdAndUpdate(id, post)
+    return res.status(200).json({message: 'Post curtido com sucesso.'})
+  }
+
 
 }

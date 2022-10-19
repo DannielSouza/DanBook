@@ -39,7 +39,7 @@ const Login = () => {
         <h2 className={style.title}>Entrar</h2>
 
         <label htmlFor='email'>E-mail</label>
-        <input required type='email' name='email' id='email' onChange={userStateChange}/>
+        <input autoComplete="off" required type='email' name='email' id='email' onChange={userStateChange}/>
 
         <label htmlFor='password'>Senha</label>
         <input required type='password' name='password' id='password' onChange={userStateChange}/>

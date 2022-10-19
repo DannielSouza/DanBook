@@ -10,6 +10,7 @@ router.put('/edit', verifyToken, ImageUpload.single("image"), UserController.edi
 router.post('/login', UserController.login)
 router.get('/checkuser',verifyToken, UserController.checkUser)
 router.get('/profile', verifyToken, UserController.profile)
+router.get('/profile/:id', verifyToken, UserController.peopleProfile)
 
 
 module.exports = router

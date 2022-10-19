@@ -125,8 +125,22 @@ module.exports = class UserController{
         {$set: user},
         {new: true}
       )
+
+
+
+      //DEPOIS VOLTAR AQUI PARA ATUALIZAT TAMBÉM A FOTO DOS COMENTARIOS!!!
+      //DEPOIS VOLTAR AQUI PARA ATUALIZAT TAMBÉM A FOTO DOS COMENTARIOS!!!
+      //DEPOIS VOLTAR AQUI PARA ATUALIZAT TAMBÉM A FOTO DOS COMENTARIOS!!!
+      const teste = await Post.updateMany({'userId': user._id},{userImage: user.image})
+      //DEPOIS VOLTAR AQUI PARA ATUALIZAT TAMBÉM A FOTO DOS COMENTARIOS!!!
+      //DEPOIS VOLTAR AQUI PARA ATUALIZAT TAMBÉM A FOTO DOS COMENTARIOS!!!
+      //DEPOIS VOLTAR AQUI PARA ATUALIZAT TAMBÉM A FOTO DOS COMENTARIOS!!!
+      
+      
+
       return res.status(200).json({message: 'Usuário atualizado com sucesso.'})
     } catch (error) {
+      console.log(error)
       return res.status(500).json({message: 'Houve um erro ao atualzar os dados.'})
     }
   }
@@ -140,8 +154,21 @@ module.exports = class UserController{
 
     if(!user) return res.status(422).json({message: 'Usuário não encontrado.'})
 
-    const usersPost = await Post.find({'user._id': user._id}).sort('-createdAt')
+    const usersPost = await Post.find({'userId': user._id}).sort('-createdAt')
 
     res.status(200).json({user: user, posts: usersPost})
+  }
+
+
+  /* USER PROFILE BY OTHERS PEOPLE */
+  static async peopleProfile(req, res){
+    const {id} = req.params
+
+    const user = await User.find({_id: id})
+    const posts = await Post.find({userId: id})
+    
+    if(!user) return res.status(422).json({message: 'Usuário não encontrado.'})
+
+    res.status(200).json({user, posts})
   }
 }
