@@ -165,7 +165,7 @@ module.exports = class UserController{
     const {id} = req.params
 
     const user = await User.find({_id: id})
-    const posts = await Post.find({userId: id})
+    const posts = await Post.find({userId: id}).sort('-createdAt')
     
     if(!user) return res.status(422).json({message: 'Usuário não encontrado.'})
 

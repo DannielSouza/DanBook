@@ -88,6 +88,17 @@ module.exports = class PostController{
   }
 
 
+  /* GET A POST DETAILS BY ID */
+  static async getPostById(req, res){
+    const {id} = req.params
+    const post = await Post.findOne({_id: id})
+
+    if(!post) return res.status(404).json({message: 'Post não encontrado.'})
+
+    res.status(200).json(post)
+  }
+
+
   /* COMMENT A POST BY ID */
   static async commentAPostById(req, res){
     const {id} = req.params

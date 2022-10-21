@@ -44,7 +44,7 @@ const CreatePostForm = ({setUpdatePosts}) => {
 
   return (
     <form onSubmit={createForm} className={style.formContainer}>
-      <textarea ref={contentInput} placeholder='Faça uma publicação! :D' name='content' id='content' className={style.formInput} onChange={changePostContent}/>
+      <textarea maxLength="300" ref={contentInput} placeholder='Faça uma publicação! :D' name='content' id='content' className={style.formInput} onChange={changePostContent}/>
       <div className={style.formFileContainer}>
         <p>Gostaria de carregar uma imagem?</p>
         <input ref={fileInput} className={style.formFile} type='file' name='image' id='image' onChange={userImageStateChange}/>

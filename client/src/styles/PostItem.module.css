@@ -36,15 +36,6 @@
   color: rgba(0, 0, 0, .5);
 }
 
-.profilePicture{
-  border: inset 1px solid rgba(0, 0, 0, .3);
-  height: 50px;
-  width: 50px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  border-radius: 50%;
-}
 
 .postUser{
   font-weight: bold;
@@ -58,8 +49,9 @@
 }
 
 .postImage{
-  max-width: 600;
-  
+  max-height: 450px;
+  max-width: 550px;
+  margin: 0 auto;
 }
 
 .reactionsContainer{

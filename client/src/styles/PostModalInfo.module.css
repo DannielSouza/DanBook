@@ -1,0 +1,33 @@
+.container{
+  position: fixed;
+  padding-top: 120px;
+  top: 0%;
+  left: 0%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, .3);
+  animation: containerAppear .3s forwards ease-in-out;
+  width: 100vw;
+  height: 100vh;
+  z-index: 90;
+}
+
+@keyframes containerAppear {
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+}
+
+.contentContainer{
+  display: flex;
+}
+
+.commentsContainerNoPicture{
+  width: 500px;
+  height: 275px;
+  background-color: lightgray;
+}

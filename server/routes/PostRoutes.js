@@ -9,6 +9,7 @@ router.delete('/:id', verifyToken, PostController.deletePostById)
 router.put('/:id', verifyToken, ImageUpload.single("image"), PostController.updatePostById)
 router.post('/comment/:id', verifyToken, PostController.commentAPostById)
 router.post('/like/:id', verifyToken, PostController.likeAPostById)
+router.get('/:id', verifyToken, PostController.getPostById)
 
 
 module.exports = router

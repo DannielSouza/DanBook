@@ -1,9 +1,10 @@
 import React from "react";
 import style from "../styles/PostItem.module.css";
 import axios from "axios";
-import defaultPicture from '../images/defaultUser.png'
+import defaultPicture from "../images/defaultUser.png";
 import { Link } from "react-router-dom";
-
+import PostModalInfo from './PostModalInfo'
+import PostProfilePicture from "./PostProfilePicture";
 
 const PostItem = ({
   image,
@@ -17,7 +18,9 @@ const PostItem = ({
   date,
   setAlert,
   ownersPostId,
-  token
+  token,
+  navigateIntoProfiles,
+  viewPostDetails
 }) => {
   const formatedDateComplete = date.split("T")[0].split("-");
   const formatedDate = `${formatedDateComplete[2]}/${formatedDateComplete[1]}/${formatedDateComplete[0]}`;
@@ -26,19 +29,20 @@ const PostItem = ({
   const [commentsCount, setCommentsCount] = React.useState(comments.length);
   const [likedPost, setLikedPost] = React.useState(false);
   const [likeButtonMessage, setLikeButtonMessage] = React.useState("Gostei");
-  const [styleLikedButton, setStyleLikedButton] = React.useState({})
+  const [styleLikedButton, setStyleLikedButton] = React.useState({});
+  const [modalInfo, setModalInfo] = React.useState(false)
 
   React.useEffect(() => {
-    
     
     likes.forEach((usersLikes) => {
       if (String(usersLikes._id) === String(userId)) {
         setLikedPost(true);
         setLikeButtonMessage("Você gostou!");
-        setStyleLikedButton({backgroundColor: '#9442fe', color: 'white'})
+        setStyleLikedButton({ backgroundColor: "#9442fe", color: "white" });
       }
     });
   }, []);
+
 
   async function likeAPost() {
     try {
@@ -48,9 +52,9 @@ const PostItem = ({
         },
       });
       setLikesCount(likesCount + 1);
-      setLikedPost(true)
+      setLikedPost(true);
       setLikeButtonMessage("Você gostou!");
-      setStyleLikedButton({backgroundColor: '#9442fe', color: 'white'})
+      setStyleLikedButton({ backgroundColor: "#9442fe", color: "white" });
     } catch (error) {
       setAlert(true);
       setTimeout(() => {
@@ -59,24 +63,48 @@ const PostItem = ({
     }
   }
 
+  function openPostInfo(){
+    if(viewPostDetails){
+      setModalInfo(true)
+    }
+  }
+
   return (
     <>
-      <div className={style.postContainer}>
+      {modalInfo && <PostModalInfo postId={postId} userId={userId} viewPostDetails={false} setModalInfo={setModalInfo}/>}
+      <div style={viewPostDetails? {cursor: 'pointer'} : {cursor: 'default'}} className={style.postContainer} onClick={openPostInfo}>
         <div className={style.contentContainer}>
-          <div
-            style={picture ?{ backgroundImage: `url(http://localhost:4000/images/users/${picture})`}:
-            { backgroundImage: `url(${defaultPicture})`}
-          }
-            className={style.profilePicture}
-          ></div>
+
+          <PostProfilePicture picture={picture} />
+
           <div>
             <div className={style.contentInfo}>
-              <Link className={style.postUser} to={`/profile/${ownersPostId}`}><p>{name}</p></Link>
+              {navigateIntoProfiles && userId === ownersPostId  &&
+                <Link className={style.postUser} to={`/profile`}>
+                  <p>{name}</p>
+                </Link>
+              } 
+              {navigateIntoProfiles && userId !== ownersPostId  &&
+                <Link
+                  className={style.postUser}
+                  to={`/profile/${ownersPostId}`}
+                >
+                  <p>{name}</p>
+                </Link>
+              }
+              {!navigateIntoProfiles &&
+                <li
+                  className={style.postUser}     
+                >
+                  <p>{name}</p>
+                  </li>
+              }
+              
               <span>{formatedDate}</span>
             </div>
           </div>
         </div>
-            <p className={style.postContent}>{content}</p>
+        <p className={style.postContent}>{content}</p>
 
         {image && (
           <img
@@ -101,7 +129,9 @@ const PostItem = ({
 
         <div className={style.reactionsContainer}>
           {likedPost ? (
-            <button style={styleLikedButton} onClick={likeAPost}>{likeButtonMessage}</button>
+            <button style={styleLikedButton} onClick={likeAPost}>
+              {likeButtonMessage}
+            </button>
           ) : (
             <button onClick={likeAPost}>Gostei</button>
           )}

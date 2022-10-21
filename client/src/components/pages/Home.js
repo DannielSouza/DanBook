@@ -3,12 +3,10 @@ import style from "../../styles/Home.module.css";
 import axios from "axios";
 import Loading from "../Loading";
 import PostItem from "../PostItem";
-import AlertMessage from '../AlertMessage'
-import defaultPicture from '../../images/defaultUser.png'
+import AlertMessage from "../AlertMessage";
+import defaultPicture from "../../images/defaultUser.png";
 import { Link } from "react-router-dom";
 import CreatePostForm from "../CreatePostForm";
-
-
 
 const Home = () => {
   const [token, setToken] = React.useState(
@@ -16,8 +14,10 @@ const Home = () => {
   );
   const [user, setUser] = React.useState(null);
   const [posts, setPosts] = React.useState(null);
-  const [alert, setAlert] = React.useState(false)
-  const [updatePosts, setUpdatePosts] = React.useState(1)
+  const [alert, setAlert] = React.useState(false);
+  const [updatePosts, setUpdatePosts] = React.useState(1);
+  const navigateIntoProfiles = true
+  const viewPostDetails = true
 
   /* GET USER */
   React.useEffect(() => {
@@ -51,26 +51,31 @@ const Home = () => {
     }
   }, [token, updatePosts]);
 
-
   if (user)
     return (
       <main className={style.mainContainer}>
-            {alert && <AlertMessage message="Ainda não é possivel tirar o gostei." />}
+        {alert && (
+          <AlertMessage message="Ainda não é possivel tirar o gostei." />
+        )}
 
         <div className={style.userSideBarContainer}>
-          
           <div
-            style={user.image ?{ backgroundImage: `url(http://localhost:4000/images/users/${user.image})`}:
-            { backgroundImage: `url(${defaultPicture})`}
-          }
             className={style.profilePicture}
+            style={
+              user.image
+                ? {
+                    backgroundImage: `url(http://localhost:4000/images/users/${user.image})`,
+                  }
+                : { backgroundImage: `url(${defaultPicture})` }
+            }
           ></div>
-          <Link to={'/profile'}><h2>{user.name}</h2></Link>
 
+          <Link to={"/profile"}>
+            <h2>{user.name}</h2>
+          </Link>
         </div>
 
         <div className={style.gridPostsContainer}>
-
           <CreatePostForm setUpdatePosts={setUpdatePosts} />
 
           {posts ? (
@@ -90,6 +95,8 @@ const Home = () => {
                   date={post.createdAt}
                   setAlert={setAlert}
                   token={token}
+                  navigateIntoProfiles={navigateIntoProfiles}
+                  viewPostDetails={viewPostDetails}
                 />
               );
             })
