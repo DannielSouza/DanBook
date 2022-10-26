@@ -7,3 +7,13 @@
   background-position: center;
   border-radius: 50%;
 }
+
+.fromCommentProfile{
+  border: inset 1px solid rgba(0, 0, 0, .3);
+   height: 35px;
+   width: 35px;
+   background-size: cover;
+   background-repeat: no-repeat;
+   background-position: center;
+   border-radius: 50%;
+}

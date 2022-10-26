@@ -48,9 +48,14 @@
   margin-bottom: 2em;
 }
 
+.postImageContainer{
+  height: 400px;
+  margin: 0 auto;
+}
+
 .postImage{
-  max-height: 450px;
-  max-width: 550px;
+  max-height: 400px;
+  max-width: 500px;
   margin: 0 auto;
 }
 

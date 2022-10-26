@@ -3,7 +3,7 @@ import style from "../styles/PostItem.module.css";
 import axios from "axios";
 import defaultPicture from "../images/defaultUser.png";
 import { Link } from "react-router-dom";
-import PostModalInfo from './PostModalInfo'
+import PostModalInfo from "./PostModalInfo";
 import PostProfilePicture from "./PostProfilePicture";
 
 const PostItem = ({
@@ -20,7 +20,7 @@ const PostItem = ({
   ownersPostId,
   token,
   navigateIntoProfiles,
-  viewPostDetails
+  viewPostDetails,
 }) => {
   const formatedDateComplete = date.split("T")[0].split("-");
   const formatedDate = `${formatedDateComplete[2]}/${formatedDateComplete[1]}/${formatedDateComplete[0]}`;
@@ -30,10 +30,9 @@ const PostItem = ({
   const [likedPost, setLikedPost] = React.useState(false);
   const [likeButtonMessage, setLikeButtonMessage] = React.useState("Gostei");
   const [styleLikedButton, setStyleLikedButton] = React.useState({});
-  const [modalInfo, setModalInfo] = React.useState(false)
+  const [modalInfo, setModalInfo] = React.useState(false);
 
   React.useEffect(() => {
-    
     likes.forEach((usersLikes) => {
       if (String(usersLikes._id) === String(userId)) {
         setLikedPost(true);
@@ -42,7 +41,6 @@ const PostItem = ({
       }
     });
   }, []);
-
 
   async function likeAPost() {
     try {
@@ -63,43 +61,51 @@ const PostItem = ({
     }
   }
 
-  function openPostInfo(){
-    if(viewPostDetails){
-      setModalInfo(true)
+  function openPostInfo() {
+    if (viewPostDetails) {
+      setModalInfo(true);
     }
   }
 
   return (
     <>
-      {modalInfo && <PostModalInfo postId={postId} userId={userId} viewPostDetails={false} setModalInfo={setModalInfo}/>}
-      <div style={viewPostDetails? {cursor: 'pointer'} : {cursor: 'default'}} className={style.postContainer} onClick={openPostInfo}>
+      {modalInfo && (
+        <PostModalInfo
+          postId={postId}
+          userId={userId}
+          viewPostDetails={false}
+          setModalInfo={setModalInfo}
+        />
+      )}
+      <div
+        style={viewPostDetails ? { cursor: "pointer" } : { cursor: "default" }}
+        className={style.postContainer}
+        onClick={openPostInfo}
+      >
         <div className={style.contentContainer}>
-
           <PostProfilePicture picture={picture} />
 
           <div>
             <div className={style.contentInfo}>
-              {navigateIntoProfiles && userId === ownersPostId  &&
+              {navigateIntoProfiles && userId === ownersPostId && (
                 <Link className={style.postUser} to={`/profile`}>
                   <p>{name}</p>
                 </Link>
-              } 
-              {navigateIntoProfiles && userId !== ownersPostId  &&
+              )}
+              {navigateIntoProfiles && userId !== ownersPostId && (
                 <Link
                   className={style.postUser}
                   to={`/profile/${ownersPostId}`}
                 >
                   <p>{name}</p>
                 </Link>
-              }
-              {!navigateIntoProfiles &&
-                <li
-                  className={style.postUser}     
-                >
+              )}
+              {!navigateIntoProfiles && (
+                <li className={style.postUser}>
                   <p>{name}</p>
-                  </li>
-              }
-              
+                </li>
+              )}
+
               <span>{formatedDate}</span>
             </div>
           </div>
@@ -107,11 +113,13 @@ const PostItem = ({
         <p className={style.postContent}>{content}</p>
 
         {image && (
-          <img
-            className={style.postImage}
-            src={`http://localhost:4000/images/posts/${image}`}
-            alt="imagem da publicação"
-          />
+          <div className={style.postImageContainer}>
+            <img
+              className={style.postImage}
+              src={`http://localhost:4000/images/posts/${image}`}
+              alt="imagem da publicação"
+            />
+          </div>
         )}
 
         <div className={style.reactionsInfoContainer}>

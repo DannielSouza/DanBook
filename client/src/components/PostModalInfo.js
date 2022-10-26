@@ -24,16 +24,15 @@ const PostModalInfo = ({ postId, userId, viewPostDetails, setModalInfo }) => {
     getPostDetails();
   }, []);
 
-
-  function getClick({target}){
-    if(target.className === 'PostModalInfo_container__Evv0Y') setModalInfo(false)
+  function getClick({ target }) {
+    if (target.className === "PostModalInfo_container__Evv0Y")
+      setModalInfo(false);
   }
 
   if (dataPost && dataPost.image === "")
     return (
       <section onClick={getClick} className={style.container}>
         {alert && <AlertMessage message={"Houve algum erro."} />}
-
 
         <div className={style.contentContainer}>
           <PostItem
@@ -54,17 +53,14 @@ const PostModalInfo = ({ postId, userId, viewPostDetails, setModalInfo }) => {
           />
 
           <div className={style.commentsContainerNoPicture}>
-
-            {dataPost.comments ? dataPost.comments.map((comment)=>{
-              return <CommentItem />
-            })
-          :
-          <h1>Sem comentários</h1>
-          }
-
+            {dataPost.comments ? (
+              dataPost.comments.map((comment) => {
+                return <CommentItem />;
+              })
+            ) : (
+              <h1>Sem comentários</h1>
+            )}
           </div>
-
-
         </div>
       </section>
     );
@@ -88,6 +84,16 @@ const PostModalInfo = ({ postId, userId, viewPostDetails, setModalInfo }) => {
             navigateIntoProfiles={false}
             viewPostDetails={viewPostDetails}
           />
+
+          <ul className={style.commentsContainerPicture}>
+            {dataPost.comments ? (
+              dataPost.comments.map((comment, index) => {
+                return <CommentItem key={index} comment={comment} />;
+              })
+            ) : (
+              <h1>Sem comentários</h1>
+            )}
+          </ul>
         </div>
       </section>
     );

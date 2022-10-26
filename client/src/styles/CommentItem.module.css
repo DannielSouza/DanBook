@@ -1,0 +1,31 @@
+.commentContainer{
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 10px;
+  margin-top: 5px;
+}
+
+.commentPicture{
+  width: 50px;
+}
+
+.commentContentContainer{
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  padding: 0 5px;
+  border-radius: 0 5px 5px 10px;
+
+}
+
+.commentContentContainer p{
+  text-transform: capitalize;
+  font-size: .9rem;
+  font-weight: bold;
+}
+
+.commentContentContainer span{
+  font-size: .8rem;
+}
