@@ -3,7 +3,6 @@ import defaultPicture from "../images/defaultUser.png";
 import style from "../styles/PostProfilePicture.module.css";
 
 const PostProfilePicture = ({ picture, fromCommentProfile }) => {
-  console.log(fromCommentProfile)
 
   if (picture !== "" && fromCommentProfile !== true)
     return (

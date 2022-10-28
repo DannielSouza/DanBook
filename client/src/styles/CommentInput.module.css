@@ -1,0 +1,51 @@
+.commentInputContainer{
+  width: 100%;
+  display: flex;
+  margin-top: 1rem;
+  margin-bottom: 5px;
+  padding: 0 4px;
+  height: 25px;
+}
+
+.commentInput,
+.commentbutton{
+  border: none;
+  outline: none;
+}
+
+.commentInput{
+  padding: 2px 4px;
+  width: 90%;
+  border: 1px solid #9442fe;
+  border-radius: 10px 0 0 10px;
+  border-right: none;
+}
+
+.commentbutton{
+  width: 10%;
+  border-radius: 0 10px 10px 0;
+  border: 1px solid #9442fe;
+  background: white;
+  cursor: pointer;
+  transition: .2s;
+}
+
+
+.commentbutton:hover{
+  border: 1px solid #3378ff;
+}
+
+.commentInput:hover{
+  border: 1px solid #3378ff;
+  border-right: none;
+}
+
+
+.commentbuttonIcon{
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ margin: 0 auto;
+  width: 20px;
+  padding: 0 2px;
+}

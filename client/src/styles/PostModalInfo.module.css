@@ -27,13 +27,50 @@
 }
 
 .commentsContainerNoPicture{
-  width: 500px;
   height: 275px;
-  background-color: lightgray;
+  width: 400px;
+  background-color: rgb(240, 240, 240);
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-end;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 0 10px 10px 0;
 }
 
 .commentsContainerPicture{
-  width: 500px;
   height: 615px;
-  background-color: lightgray;
+  width: 400px;
+  background-color: rgb(240, 240, 240);
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-end;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 0 10px 10px 0;
+}
+
+.noCommentsAlert{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
+  color: darkgray;
+  cursor: default;
+}
+
+.commentsConainer{
+  width: 100%;
+  height: 100%;
+}
+
+.commentsConainer::-webkit-scrollbar {
+  width: 10px;            
+}
+
+.commentsConainer::-webkit-scrollbar-thumb {
+  background-color: #9442fe;  
+  border-radius: 20px;  
 }

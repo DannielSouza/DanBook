@@ -21,6 +21,7 @@ const PostItem = ({
   token,
   navigateIntoProfiles,
   viewPostDetails,
+  attComment,
 }) => {
   const formatedDateComplete = date.split("T")[0].split("-");
   const formatedDate = `${formatedDateComplete[2]}/${formatedDateComplete[1]}/${formatedDateComplete[0]}`;
@@ -31,6 +32,7 @@ const PostItem = ({
   const [likeButtonMessage, setLikeButtonMessage] = React.useState("Gostei");
   const [styleLikedButton, setStyleLikedButton] = React.useState({});
   const [modalInfo, setModalInfo] = React.useState(false);
+  const [checkIfUptdateCommentCount, setCheckIfUptdateCommentCount] = React.useState(1)
 
   React.useEffect(() => {
     likes.forEach((usersLikes) => {
@@ -41,6 +43,15 @@ const PostItem = ({
       }
     });
   }, []);
+
+
+  React.useEffect((setUpdatePosts)=>{
+    setCheckIfUptdateCommentCount((prev)=>prev+1)
+    if(checkIfUptdateCommentCount >= 3){
+      setCommentsCount(commentsCount + 1)
+    }
+  },[attComment])
+
 
   async function likeAPost() {
     try {
@@ -77,11 +88,7 @@ const PostItem = ({
           setModalInfo={setModalInfo}
         />
       )}
-      <div
-        style={viewPostDetails ? { cursor: "pointer" } : { cursor: "default" }}
-        className={style.postContainer}
-        onClick={openPostInfo}
-      >
+      <div className={image? style.postContainer : style.postContainerNoImage}>
         <div className={style.contentContainer}>
           <PostProfilePicture picture={picture} />
 
@@ -110,10 +117,24 @@ const PostItem = ({
             </div>
           </div>
         </div>
-        <p className={style.postContent}>{content}</p>
+        <p
+          onClick={openPostInfo}
+          style={
+            viewPostDetails ? { cursor: "pointer" } : { cursor: "default" }
+          }
+          className={style.postContent}
+        >
+          {content}
+        </p>
 
         {image && (
-          <div className={style.postImageContainer}>
+          <div
+            onClick={openPostInfo}
+            style={
+              viewPostDetails ? { cursor: "pointer" } : { cursor: "default" }
+            }
+            className={style.postImageContainer}
+          >
             <img
               className={style.postImage}
               src={`http://localhost:4000/images/posts/${image}`}
@@ -122,13 +143,18 @@ const PostItem = ({
           </div>
         )}
 
-        <div className={style.reactionsInfoContainer}>
-          <p>
+        <div
+          style={
+            viewPostDetails ? { cursor: "pointer" } : { cursor: "default" }
+          }
+          className={style.reactionsInfoContainer}
+        >
+          <p onClick={openPostInfo}>
             {likesCount === 1
               ? likesCount + " curtida"
               : likesCount + " curtidas"}
           </p>
-          <p>
+          <p onClick={openPostInfo}>
             {commentsCount === 1
               ? commentsCount + " comentário"
               : commentsCount + " comentários"}
@@ -143,7 +169,7 @@ const PostItem = ({
           ) : (
             <button onClick={likeAPost}>Gostei</button>
           )}
-          <button>Comentar</button>
+          <button onClick={openPostInfo}>Comentar</button>
         </div>
       </div>
     </>

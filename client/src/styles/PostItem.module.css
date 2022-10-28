@@ -1,11 +1,26 @@
 .postContainer{
   margin-bottom: 3em;
   background: #fafafa;
-  border-radius: 10px;
+  border-radius: 10px 0 0 10px;
   width: 600px;
+  max-height: 615px;
   display: flex;
   flex-direction: column;
   padding: 1em;
+  cursor: default;
+}
+
+.postContainerNoImage{
+  margin-bottom: 3em;
+  background: #fafafa;
+  border-radius: 10px 0 0 10px;
+  width: 600px;
+  height: 275px;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  cursor: default;
+  justify-content: center;
 }
 
 .contentContainer{

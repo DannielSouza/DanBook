@@ -5,11 +5,13 @@ import axios from "axios";
 import PostItem from "../components/PostItem";
 import AlertMessage from "./AlertMessage";
 import CommentItem from "./CommentItem";
+import CommentInput from "./CommentInput";
 
 const PostModalInfo = ({ postId, userId, viewPostDetails, setModalInfo }) => {
   const [dataPost, setDataPost] = React.useState();
   const token = JSON.parse(window.localStorage.getItem("token"));
   const [alert, setAlert] = React.useState(false);
+  const [attComment, setAttComment] = React.useState(1)
 
   React.useEffect(() => {
     async function getPostDetails() {
@@ -22,11 +24,12 @@ const PostModalInfo = ({ postId, userId, viewPostDetails, setModalInfo }) => {
         .then(({ data }) => setDataPost(data));
     }
     getPostDetails();
-  }, []);
+  }, [attComment]);
 
   function getClick({ target }) {
-    if (target.className === "PostModalInfo_container__Evv0Y")
+    if (target.className === "PostModalInfo_container__Evv0Y"){
       setModalInfo(false);
+    }
   }
 
   if (dataPost && dataPost.image === "")
@@ -36,6 +39,7 @@ const PostModalInfo = ({ postId, userId, viewPostDetails, setModalInfo }) => {
 
         <div className={style.contentContainer}>
           <PostItem
+            attComment={attComment}
             setAlert={setAlert}
             userId={userId}
             key={dataPost._id}
@@ -52,15 +56,20 @@ const PostModalInfo = ({ postId, userId, viewPostDetails, setModalInfo }) => {
             viewPostDetails={viewPostDetails}
           />
 
-          <div className={style.commentsContainerNoPicture}>
-            {dataPost.comments ? (
-              dataPost.comments.map((comment) => {
-                return <CommentItem />;
+          <ul className={style.commentsContainerNoPicture}>
+            <CommentInput setAttComment={setAttComment} postId={dataPost._id} />
+
+            <div className={style.commentsConainer} style={{'overflowY': 'auto'}}>
+
+            {dataPost.comments != false ? (
+              dataPost.comments.map((comment, index) => {
+                return <CommentItem key={index} comment={comment} />;
               })
-            ) : (
-              <h1>Sem comentários</h1>
-            )}
-          </div>
+              ) : (
+                <h1 className={style.noCommentsAlert}>Sem comentários</h1>
+                )}
+              </div>
+          </ul>
         </div>
       </section>
     );
@@ -69,6 +78,7 @@ const PostModalInfo = ({ postId, userId, viewPostDetails, setModalInfo }) => {
       <section onClick={getClick} className={style.container}>
         <div className={style.contentContainer}>
           <PostItem
+            attComment={attComment}
             setAlert={setAlert}
             userId={userId}
             key={dataPost._id}
@@ -86,12 +96,14 @@ const PostModalInfo = ({ postId, userId, viewPostDetails, setModalInfo }) => {
           />
 
           <ul className={style.commentsContainerPicture}>
-            {dataPost.comments ? (
+            <CommentInput setAttComment={setAttComment} postId={dataPost._id} />
+
+            {dataPost.comments != false ? (
               dataPost.comments.map((comment, index) => {
                 return <CommentItem key={index} comment={comment} />;
               })
             ) : (
-              <h1>Sem comentários</h1>
+              <h1 className={style.noCommentsAlert}>Sem comentários</h1>
             )}
           </ul>
         </div>
