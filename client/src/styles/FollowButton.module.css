@@ -1,0 +1,24 @@
+.followButton,
+.followButtonDisabled{
+  width: 150px;
+  height: 30px;
+  border: none;
+  font-weight: bold;
+  
+  margin-top: 1rem;
+  
+  transition: .3s ease-in-out;
+  border-radius: 5px;
+}
+
+.followButton{
+  color: white;
+  background: linear-gradient(145deg, #3378ff, #9442fe);
+  cursor: pointer;
+}
+
+.followButtonDisabled{
+  cursor: not-allowed;
+  color: rgb(143, 143, 143);
+  background: rgb(223, 223, 223);
+}

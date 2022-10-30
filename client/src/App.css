@@ -15,3 +15,7 @@
   opacity: .5 !important;
   pointer-events: none !important;
 }
+
+body{
+  overflow-x: hidden;
+}

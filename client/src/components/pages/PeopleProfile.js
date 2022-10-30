@@ -4,15 +4,18 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import AlertMessage from "../AlertMessage";
 import Loading from "../Loading";
-import { Link } from "react-router-dom";
 import PostItem from "../PostItem";
 import defaultPicture from "../../images/defaultUser.png";
+import FollowButton from "../FollowButton";
+import FollowsModal from "../FollowsModal";
 
 const PeopleProfile = () => {
   const { id } = useParams();
   const token = JSON.parse(window.localStorage.getItem("token"));
   const [profile, setProfile] = React.useState();
   const [alert, setAlert] = React.useState(false);
+  const [userFollowers, setUserFollowers] = React.useState()
+  const [followsModal, setFollowsModal] = React.useState(false)
   let profilePicture;
   const navigateIndoProfiles = false;
   const viewPostDetails = true
@@ -25,11 +28,13 @@ const PeopleProfile = () => {
             Authorization: `Bearer ${token}`,
           },
         })
-        .then((response) => setProfile(response.data));
+        .then((response) => {
+          setProfile(response.data)
+          setUserFollowers(response.data.user[0].followers.length)
+        });
     }
     getData();
   }, []);
-  /* profile.user[0].name */
 
   if (profile) {
     if (profile.user[0].image)
@@ -43,6 +48,7 @@ const PeopleProfile = () => {
         {alert && (
           <AlertMessage message="Ainda não é possivel tirar o gostei." />
         )}
+        {followsModal && <FollowsModal followers={[profile.user[0].followers]} setFollowsModal={setFollowsModal}/> }
         <div className={style.userContainer}>
         <div className={style.userInfoContainer}>
           <div
@@ -54,15 +60,16 @@ const PeopleProfile = () => {
             <h1 className={style.userName}>{profile.user[0].name}</h1>
 
             <div className={style.userInfoItem}>
-              <div>
+              <div onClick={()=> setFollowsModal(true)} style={{'cursor': 'pointer'}}>
                 <p>Seguidores</p>
-                <span>{profile.user[0].followers.length}</span>
+                <span>{userFollowers}</span>
               </div>
               <div>
                 <p>Publicações</p>
                 <span>{profile.posts.length}</span>
               </div>
             </div>
+              <FollowButton setUserFollowers={setUserFollowers} userId={profile.user[0]._id} followers={[profile.user[0].followers[0]]}/>
             </div>
           </div>
         </div>

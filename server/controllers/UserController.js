@@ -88,6 +88,7 @@ module.exports = class UserController{
       currentUser = await User.findById(decoded.id)
       currentUser.password = undefined
     }
+    else return res.status(422).json({message: 'Houve um erro com o token.'})
 
     res.status(200).send(currentUser)
   }
@@ -126,18 +127,8 @@ module.exports = class UserController{
         {new: true}
       )
 
-
-
-      //DEPOIS VOLTAR AQUI PARA ATUALIZAT TAMBÉM A FOTO DOS COMENTARIOS!!!
-      //DEPOIS VOLTAR AQUI PARA ATUALIZAT TAMBÉM A FOTO DOS COMENTARIOS!!!
-      //DEPOIS VOLTAR AQUI PARA ATUALIZAT TAMBÉM A FOTO DOS COMENTARIOS!!!
-      const teste = await Post.updateMany({'userId': user._id},{userImage: user.image})
-      //DEPOIS VOLTAR AQUI PARA ATUALIZAT TAMBÉM A FOTO DOS COMENTARIOS!!!
-      //DEPOIS VOLTAR AQUI PARA ATUALIZAT TAMBÉM A FOTO DOS COMENTARIOS!!!
-      //DEPOIS VOLTAR AQUI PARA ATUALIZAT TAMBÉM A FOTO DOS COMENTARIOS!!!
+      await Post.updateMany({'userId': user._id},{userImage: user.image})
       
-      
-
       return res.status(200).json({message: 'Usuário atualizado com sucesso.'})
     } catch (error) {
       console.log(error)
@@ -170,5 +161,40 @@ module.exports = class UserController{
     if(!user) return res.status(422).json({message: 'Usuário não encontrado.'})
 
     res.status(200).json({user, posts})
+  }
+
+
+  /* FOLLOW OTHER PEOPLE */
+  static async followPeople(req, res){
+    const {id} = req.params
+    const followedUser = await User.findById(id)
+    if(!followedUser) return res.status(422).json({message: 'Usuário não encontrado.'})
+
+    const token = getToken(req)
+    const followingUser = await getUserByToken(token)
+
+    if(followingUser.email === followedUser.email) return res.status(422).json({message: 'Você não pode seguir a si mesmo.'})
+
+    followedUser.followers.forEach((item)=>{
+      if(item.email === followingUser.email)  return res.status(422).json({message: 'Você já está seguindo esse usuário.'})
+    })
+
+    const newFollow={
+      _id: followingUser._id,
+      name: followingUser.name,
+      email: followingUser.email,
+      image: followingUser.image
+    }
+
+    followedUser.followers.push(newFollow)
+    
+    await User.findOneAndUpdate(
+      {_id: followedUser._id},
+      {$set: followedUser},
+      {new: true}
+    )
+
+    res.status(200).json({message: `Agora você está seguindo ${followedUser.name}.`})
+
   }
 }
