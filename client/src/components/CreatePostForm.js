@@ -15,7 +15,6 @@ const CreatePostForm = ({setUpdatePosts}) => {
   
   function userImageStateChange({target}){
     setPost({ ...post, [target.name]: target.files[0] })
-    console.log(target.files)
   }
 
 

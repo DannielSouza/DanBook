@@ -42,36 +42,37 @@ const Profile = () => {
         {alert && (
           <AlertMessage message="Ainda não é possivel tirar o gostei." />
         )}
-        <div className={style.userInfoContainer}>
-          <div
-            className={style.userImageContainer}
-            style={{ backgroundImage: profilePicture }}
-          ></div>
+        <div className={style.userContainer}>
+          <div className={style.userInfoContainer}>
+            <div
+              className={style.userImageContainer}
+              style={{ backgroundImage: profilePicture }}
+            ></div>
 
-          <div className={style.userInfo}>
-            <h1 className={style.userName}>{userDetails.user.name}</h1>
+            <div className={style.userInfo}>
+              <h1 className={style.userName}>{userDetails.user.name}</h1>
 
-            <div className={style.userInfoItem}>
-              <div>
-                <p>Seguidores</p>
-                <span>{userDetails.user.followers.length}</span>
+              <div className={style.userInfoItem}>
+                <div>
+                  <p>Seguidores</p>
+                  <span>{userDetails.user.followers.length}</span>
+                </div>
+                <div>
+                  <p>Publicações</p>
+                  <span>{userDetails.posts.length}</span>
+                </div>
               </div>
-              <div>
-                <p>Publicações</p>
-                <span>{userDetails.posts.length}</span>
-              </div>
+
+              <Link to={"/profile/edit"}>
+                <button className={style.editProfileButton}>Editar perfil</button>
+              </Link>
             </div>
-
-            <Link to={"/profile/edit"}>
-              <button className={style.editProfileButton}>Editar perfil</button>
-            </Link>
-          </div>
+            </div>
         </div>
 
         <div className={style.postsContainer}>
           {userDetails &&
             userDetails.posts.map((item) => {
-                //ARRUMAR O REDIRECIONAMENTO NA PARTE DO PERFIL
               return (
                 <PostItem
                   setAlert={setAlert}
@@ -88,6 +89,7 @@ const Profile = () => {
                   comments={item.comments}
                   navigateIntoProfiles={navigateIntoProfiles}
                   viewPostDetails={viewPostDetails}
+                  profileOptions={true}
                 />
               );
             })}

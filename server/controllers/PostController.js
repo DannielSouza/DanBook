@@ -54,7 +54,7 @@ module.exports = class PostController{
     const token = getToken(req)
     const user = await getUserByToken(token)
 
-    if(String(post.user._id) !== String(user._id)) return res.status(422).json({message: 'O post foi publicado por outro usuário.'})
+    if(String(post.userId) !== String(user._id)) return res.status(422).json({message: 'O post foi publicado por outro usuário.'})
 
     await Post.findByIdAndDelete(id)
     return res.status(200).json({message: 'Post removido com sucesso.'})
@@ -70,9 +70,9 @@ module.exports = class PostController{
     const post = await Post.findOne({_id: id})
     if(!post) return res.status(404).json({message: 'Post não encontrado.'})
 
-    const token = getToken(req)
-    const user = await getUserByToken(token)
-    if(String(post.user._id) !== String(user._id)) return res.status(422).json({message: 'O post foi publicado por outro usuário.'})
+    const token = await getToken(req)
+
+    if(String(post.userId) !== String(user._id)) return res.status(422).json({message: 'O post foi publicado por outro usuário.'})
     
     if(!content) return res.status(422).json({message: 'o post não pode ser em branco'})
 

@@ -1,0 +1,101 @@
+.container{
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, .3);
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 10; 
+}
+
+.contentContainer{
+  width: 600px;
+  height: 400px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  max-width: 600px;
+  padding-top: 1em;
+  margin-bottom: 2em;
+  border-radius: 10px;
+  position: relative;
+}
+
+.title{
+  text-align: center;
+  margin-bottom: 3rem;
+  font-family: 'Poppins', sans-serif;
+  color: rgba(0, 0, 0, .8); 
+}
+
+.formInput{
+  height: 120px;
+  border: 1px solid #9442fe;
+  border-radius: 5px;
+  transition: .3s;
+  font-size: 1.1em;
+  padding: 5px;
+}
+
+.formInput:focus{
+  box-shadow: 0 0 2px 2px #3378ff;
+  outline: none;
+}
+
+.formFileContainer{
+  display: flex;
+  gap: 2em;
+  margin: .4em 0;
+}
+
+.buttonContainer{
+  margin-top: 5rem;
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+}
+
+.saveButton{
+  width: 80px;
+  height: 23px;
+  color: white;
+  background: #3378ff;
+  border-radius: 5px;
+  border: 1px solid ;
+  border-radius: 5px;
+  padding: .2rem .5rem;
+  transition: .3s;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: .75rem;
+  font-weight: bold;
+  margin-left: .5rem;
+}
+
+.saveButton:hover{
+  background: #9442fe;
+}
+
+.cancelButton{
+  width: 80px;
+  height: 22px;
+  background: white;
+  color: #EC7063;
+  border: 1px solid #EC7063;
+  border-radius: 5px;
+  padding: .2rem .5rem;
+  transition: .3s;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: .75rem;
+}
+
+.cancelButton:hover{
+  background: #EC7063;
+  color: white;
+  border: 1px solid #EC7063;
+}

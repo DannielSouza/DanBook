@@ -98,13 +98,16 @@ const PostModalInfo = ({ postId, userId, viewPostDetails, setModalInfo }) => {
           <ul className={style.commentsContainerPicture}>
             <CommentInput setAttComment={setAttComment} postId={dataPost._id} />
 
+            <div className={style.commentsConainer} style={{'overflowY': 'auto'}}>
+
             {dataPost.comments != false ? (
               dataPost.comments.map((comment, index) => {
                 return <CommentItem key={index} comment={comment} />;
               })
-            ) : (
-              <h1 className={style.noCommentsAlert}>Sem comentários</h1>
-            )}
+              ) : (
+                <h1 className={style.noCommentsAlert}>Sem comentários</h1>
+                )}
+                </div>
           </ul>
         </div>
       </section>

@@ -15,6 +15,7 @@ const PeopleProfile = () => {
   const [alert, setAlert] = React.useState(false);
   let profilePicture;
   const navigateIndoProfiles = false;
+  const viewPostDetails = true
 
   React.useEffect(() => {
     async function getData() {
@@ -42,6 +43,7 @@ const PeopleProfile = () => {
         {alert && (
           <AlertMessage message="Ainda não é possivel tirar o gostei." />
         )}
+        <div className={style.userContainer}>
         <div className={style.userInfoContainer}>
           <div
             className={style.userImageContainer}
@@ -60,6 +62,7 @@ const PeopleProfile = () => {
                 <p>Publicações</p>
                 <span>{profile.posts.length}</span>
               </div>
+            </div>
             </div>
           </div>
         </div>
@@ -81,6 +84,7 @@ const PeopleProfile = () => {
                   likes={item.likes}
                   comments={item.comments}
                   navigateIndoProfiles={navigateIndoProfiles}
+                  viewPostDetails={viewPostDetails}
                 />
               );
             })}

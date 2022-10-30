@@ -27,7 +27,9 @@
   display: flex;
   gap: 1em;
   margin-bottom: 1em;
+  position: relative;
 }
+
 
 .contentInfo{
   margin-bottom: .5em;

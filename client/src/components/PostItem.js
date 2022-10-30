@@ -5,6 +5,7 @@ import defaultPicture from "../images/defaultUser.png";
 import { Link } from "react-router-dom";
 import PostModalInfo from "./PostModalInfo";
 import PostProfilePicture from "./PostProfilePicture";
+import PostProfileConfig from "./PostProfileConfig";
 
 const PostItem = ({
   image,
@@ -22,6 +23,7 @@ const PostItem = ({
   navigateIntoProfiles,
   viewPostDetails,
   attComment,
+  profileOptions
 }) => {
   const formatedDateComplete = date.split("T")[0].split("-");
   const formatedDate = `${formatedDateComplete[2]}/${formatedDateComplete[1]}/${formatedDateComplete[0]}`;
@@ -90,32 +92,37 @@ const PostItem = ({
       )}
       <div className={image? style.postContainer : style.postContainerNoImage}>
         <div className={style.contentContainer}>
+
           <PostProfilePicture picture={picture} />
 
-          <div>
-            <div className={style.contentInfo}>
-              {navigateIntoProfiles && userId === ownersPostId && (
-                <Link className={style.postUser} to={`/profile`}>
-                  <p>{name}</p>
-                </Link>
-              )}
-              {navigateIntoProfiles && userId !== ownersPostId && (
-                <Link
-                  className={style.postUser}
-                  to={`/profile/${ownersPostId}`}
-                >
-                  <p>{name}</p>
-                </Link>
-              )}
-              {!navigateIntoProfiles && (
-                <li className={style.postUser}>
-                  <p>{name}</p>
-                </li>
-              )}
+            <div>
+              <div className={style.contentInfo}>
+                {navigateIntoProfiles && userId === ownersPostId && (
+                  <Link className={style.postUser} to={`/profile`}>
+                    <p>{name}</p>
+                  </Link>
+                )}
+                {navigateIntoProfiles && userId !== ownersPostId && (
+                  <Link
+                    className={style.postUser}
+                    to={`/profile/${ownersPostId}`}
+                  >
+                    <p>{name}</p>
+                  </Link>
+                )}
+                {!navigateIntoProfiles && (
+                  <li className={style.postUser}>
+                    <p>{name}</p>
+                  </li>
+                )}
 
-              <span>{formatedDate}</span>
-            </div>
+                <span>{formatedDate}</span>
+              </div>
+
           </div>
+
+
+              {profileOptions && <PostProfileConfig  image={image} content={content} postId={postId} />}
         </div>
         <p
           onClick={openPostInfo}

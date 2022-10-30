@@ -1,21 +1,26 @@
 .mainContainer{
-  max-width: 1000px;
-  margin: 0 auto;
-}
-.postsContainer{
-  display: flex;
-  margin: 0 auto;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
+  /* max-width: 1000px;
+  margin: 0 auto; */
 }
 
+.userContainer{
+  background: #3498DB /* linear-gradient(120deg, #9442fe, #3378ff ) */;
+  height: 300px;
+  margin-bottom: 7rem;
+  position: relative;
+}
+
+
 .userInfoContainer{
+  color: white;
+  position: absolute;
+  bottom: -180px;
   padding-top: 150px;
   display: flex;
   justify-content: center;
-  gap: 2em;
+  gap: 1.5em;
   margin-bottom: 5em;
+  padding: 0 3rem;
 }
 
 .userImageContainer{
@@ -43,14 +48,23 @@
 }
 
 .editProfileButton{
-  width: 80%;
+  width: 150px;
   height: 30px;
   border: none;
   font-weight: bold;
   color: white;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   background: linear-gradient(145deg, #3378ff, #9442fe);
   cursor: pointer;
   transition: .3s ease-in-out;
   border-radius: 5px;
+}
+
+
+.postsContainer{
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
