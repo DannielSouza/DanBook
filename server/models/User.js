@@ -18,10 +18,16 @@ const User = mongoose.model('user', new Schema({
     type: Array,
     default: []
   },
+  description:{
+    type: String,
+    default: 'Olá! Sou novo no DanBook.'
+  },
   image:{
     type: String,
     default: ''
   },
-}))
+},
+{ timestamps: true }
+))
 
 module.exports = User

@@ -3,7 +3,7 @@ import style from '../styles/FollowsModal.module.css'
 import PostProfilePicture from './PostProfilePicture'
 
 const FollowsModal = ({followers, setFollowsModal}) => {
-  const folloedwBy = followers[0]
+
 
   function checkClick({target}){
     if(target.className === 'FollowsModal_container__d1GYL') setFollowsModal(false)
@@ -14,7 +14,7 @@ const FollowsModal = ({followers, setFollowsModal}) => {
       <div className={style.contentContainer}>
         {followers?
         
-        folloedwBy.map((follower)=>{
+        followers.map((follower)=>{
           return <div className={style.followerItem} key={follower._id}>
             <PostProfilePicture picture={follower.image}/>
             <p>{follower.name}</p>

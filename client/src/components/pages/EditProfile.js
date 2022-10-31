@@ -91,13 +91,15 @@ const Profile = () => {
         <label htmlFor='email'>E-mail</label>
         <input type='email' name='email' id='email' value={user.email || ''} onChange={userStateChange}/>
 
+        <label htmlFor='description'>Descrição</label>
+        <input maxlength="40" type='text' name='description' value={user.description || ''} id='description' onChange={userStateChange}/>
+
         <label htmlFor='password'>Senha</label>
         <input type='password' name='password' id='password' onChange={userStateChange}/>
 
         <label htmlFor='confirmpassword'>Repita sua senha</label>
         <input type='password' name='confirmpassword' id='confirmpassword' onChange={userStateChange}/>
 
-        {/* {loading?<button className='disabled'>Carregando...</button>:<button>Entrar</button>} */}
         <div className={style.buttonsContainer}>
           <Link to={'/profile'}>Voltar</Link>
           <button>Salvar</button>

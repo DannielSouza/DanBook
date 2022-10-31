@@ -48,7 +48,7 @@ const PeopleProfile = () => {
         {alert && (
           <AlertMessage message="Ainda não é possivel tirar o gostei." />
         )}
-        {followsModal && <FollowsModal followers={[profile.user[0].followers]} setFollowsModal={setFollowsModal}/> }
+        {followsModal && <FollowsModal followers={[profile.user[0].followers[0]]} setFollowsModal={setFollowsModal}/> }
         <div className={style.userContainer}>
         <div className={style.userInfoContainer}>
           <div

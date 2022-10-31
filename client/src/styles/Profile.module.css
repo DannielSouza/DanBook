@@ -1,15 +1,17 @@
-.mainContainer{
-  /* max-width: 1000px;
-  margin: 0 auto; */
+.mainUserContainer{
+  padding: 0 3rem;
+  position: relative;
+
 }
 
 .userContainer{
-  background: #3498DB /* linear-gradient(120deg, #9442fe, #3378ff ) */;
+  background: linear-gradient(120deg, #2667E6, #7726E1 );
+  width: 100vw;
+  left: -3rem;
   height: 300px;
   margin-bottom: 7rem;
   position: relative;
 }
-
 
 .userInfoContainer{
   color: white;
@@ -67,4 +69,23 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
+}
+
+.infoContainer{
+  position: absolute;
+}
+
+.infoItem{
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.infoItem span{
+  font-size: .8rem;
+}
+
+.infoItem img{
+  max-width: 18px;
 }

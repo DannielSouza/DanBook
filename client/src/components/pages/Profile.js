@@ -6,6 +6,9 @@ import PostItem from "../PostItem";
 import AlertMessage from "../AlertMessage";
 import Loading from "../Loading";
 import defaultPicture from "../../images/defaultUser.png";
+import calendar from "../../images/calendar.png";
+import info from "../../images/info.png";
+import FollowsModal from "../FollowsModal";
 
 const Profile = () => {
   const [token, setToken] = React.useState(
@@ -13,9 +16,16 @@ const Profile = () => {
     );
     const [userDetails, setUserDetails] = React.useState(null);
     const [alert, setAlert] = React.useState(false);
+    const [followsModal, setFollowsModal] = React.useState(false)
     let profilePicture;
     const navigateIntoProfiles = false
     const viewPostDetails = true
+    let formatedDate
+    if(userDetails){
+      const formatedDateComplete = userDetails.user.createdAt.split("T")[0].split("-");
+      formatedDate = `${formatedDateComplete[2]}/${formatedDateComplete[1]}/${formatedDateComplete[0]}`;
+    }
+    
 
 
 
@@ -42,6 +52,9 @@ const Profile = () => {
         {alert && (
           <AlertMessage message="Ainda não é possivel tirar o gostei." />
         )}
+                {followsModal && <FollowsModal followers={userDetails.user.followers} setFollowsModal={setFollowsModal}/> }
+
+        <div className={style.mainUserContainer}>
         <div className={style.userContainer}>
           <div className={style.userInfoContainer}>
             <div
@@ -53,7 +66,7 @@ const Profile = () => {
               <h1 className={style.userName}>{userDetails.user.name}</h1>
 
               <div className={style.userInfoItem}>
-                <div>
+                <div onClick={()=> setFollowsModal(true)} style={{'cursor': 'pointer'}}>
                   <p>Seguidores</p>
                   <span>{userDetails.user.followers.length}</span>
                 </div>
@@ -68,6 +81,19 @@ const Profile = () => {
               </Link>
             </div>
             </div>
+        </div>
+
+            <div className={style.infoContainer}>
+              <div className={style.infoItem}>
+                <img src={info} alt='Mensagem em destaque do perfil.' />
+                <span>{userDetails.user.description}</span>
+              </div>
+              <div className={style.infoItem}>
+                <img src={calendar} alt='Data de criação do perfil.' />
+                <span>Ingressou em {formatedDate}</span>
+              </div>
+            </div>
+            
         </div>
 
         <div className={style.postsContainer}>

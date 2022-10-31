@@ -43,6 +43,7 @@
   display: flex;
   align-items: center;
   gap: .5rem;
+  margin-top: .5rem;
   border-bottom: 1px solid lightgray;
   padding-bottom: .5rem;
 }
