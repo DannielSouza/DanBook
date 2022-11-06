@@ -51,7 +51,6 @@ const Home = () => {
     }
   }, [token, updatePosts]);
 
-  //ATUALZIAR AS PUBLICAÇÕES APÓS FECHAR O MODAL
 
   if (user)
     return (

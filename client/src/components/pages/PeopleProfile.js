@@ -8,17 +8,25 @@ import PostItem from "../PostItem";
 import defaultPicture from "../../images/defaultUser.png";
 import FollowButton from "../FollowButton";
 import FollowsModal from "../FollowsModal";
+import calendar from "../../images/calendar.png";
+import info from "../../images/info.png";
 
 const PeopleProfile = () => {
   const { id } = useParams();
   const token = JSON.parse(window.localStorage.getItem("token"));
   const [profile, setProfile] = React.useState();
+  const [user, setUser] = React.useState();
   const [alert, setAlert] = React.useState(false);
   const [userFollowers, setUserFollowers] = React.useState()
   const [followsModal, setFollowsModal] = React.useState(false)
   let profilePicture;
   const navigateIndoProfiles = false;
   const viewPostDetails = true
+  let formatedDate
+    if(profile){
+      const formatedDateComplete = profile.user[0].createdAt.split("T")[0].split("-");
+      formatedDate = `${formatedDateComplete[2]}/${formatedDateComplete[1]}/${formatedDateComplete[0]}`;
+    }
 
   React.useEffect(() => {
     async function getData() {
@@ -36,11 +44,28 @@ const PeopleProfile = () => {
     getData();
   }, []);
 
+
+  React.useEffect(() => {
+    async function getUser() {
+      await axios
+        .get('http://localhost:4000/user/profile', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          setUser(response.data)
+        });
+    }
+    getUser();
+  }, []);
+
   if (profile) {
     if (profile.user[0].image)
       profilePicture = `url(http://localhost:4000/images/users/${profile.user[0].image})`;
     else profilePicture = `url(${defaultPicture})`;
   }
+
 
   if (profile)
     return (
@@ -48,7 +73,8 @@ const PeopleProfile = () => {
         {alert && (
           <AlertMessage message="Ainda não é possivel tirar o gostei." />
         )}
-        {followsModal && <FollowsModal followers={[profile.user[0].followers[0]]} setFollowsModal={setFollowsModal}/> }
+        {followsModal && <FollowsModal followers={profile.user[0].followers[0]} setFollowsModal={setFollowsModal}/> }
+        <div className={style.mainUserContainer}>
         <div className={style.userContainer}>
         <div className={style.userInfoContainer}>
           <div
@@ -69,18 +95,30 @@ const PeopleProfile = () => {
                 <span>{profile.posts.length}</span>
               </div>
             </div>
-              <FollowButton setUserFollowers={setUserFollowers} userId={profile.user[0]._id} followers={[profile.user[0].followers[0]]}/>
+              <FollowButton setUserFollowers={setUserFollowers} userId={profile.user[0]._id} followers={profile.user[0].followers}/>
             </div>
           </div>
-        </div>
+          </div>
+        
 
+        <div className={style.infoContainer}>
+              <div className={style.infoItem}>
+                <img src={info} alt='Mensagem em destaque do perfil.' />
+                <span>{profile.user[0].description}</span>
+              </div>
+              <div className={style.infoItem}>
+                <img src={calendar} alt='Data de criação do perfil.' />
+                <span>Ingressou em {formatedDate}</span>
+              </div>
+            </div>
+            </div>
         <div className={style.postsContainer}>
-          {profile &&
+          {profile && user &&
             profile.posts.map((item) => {
               return (
                 <PostItem
                   setAlert={setAlert}
-                  userId={profile.user[0]._id}
+                  userId={user.user._id}
                   key={item._id}
                   date={item.createdAt}
                   name={profile.user[0].name}

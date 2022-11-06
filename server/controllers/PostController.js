@@ -71,6 +71,7 @@ module.exports = class PostController{
     if(!post) return res.status(404).json({message: 'Post não encontrado.'})
 
     const token = await getToken(req)
+    const user = await getUserByToken(token)
 
     if(String(post.userId) !== String(user._id)) return res.status(422).json({message: 'O post foi publicado por outro usuário.'})
     

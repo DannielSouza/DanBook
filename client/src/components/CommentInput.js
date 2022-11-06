@@ -19,7 +19,6 @@ const CommentInput = ({postId, setAttComment}) => {
               Authorization: `Bearer ${token}`,
             },
           })
-          console.log('comentario feito com sucesso')
           setAttComment((prev)=> prev+1)
           setComment("")
       } catch (error) {

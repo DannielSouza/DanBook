@@ -19,7 +19,6 @@ const FollowButton = ({followers, userId, setUserFollowers}) => {
       
       followers.forEach((item)=>{
         if(item.email === user.email) return setIsFollowing(true)
-        console.log(item.email === user.email)
       })
     }
     getUserAndCheckIfFollow()

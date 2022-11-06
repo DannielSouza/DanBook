@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import { Context } from '../../context/UserContext'
 import AlertMessage from '../AlertMessage'
 import SuccessMessage from '../SuccessMessage'
+import wallpaperImage from '../../images/mainWallpaper2.jpg'
 
 
 const Register = () => {
@@ -51,7 +52,7 @@ const Register = () => {
 
       </form>
 
-      <div className={style.sideImage}>
+      <div style={{backgroundImage:`url(${wallpaperImage})`}} className={style.sideImage}>
 
       </div>
 

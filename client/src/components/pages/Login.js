@@ -1,10 +1,11 @@
 import React from 'react'
 import style from '../../styles/Register.module.css'
-import Axios from 'axios'
 import {Link} from 'react-router-dom'
 import AlertMessage from '../AlertMessage'
 import SuccessMessage from '../SuccessMessage'
 import {Context} from '../../context/UserContext'
+import wallpaperImage from '../../images/mainWallpaper2.jpg'
+
 
 
 const Login = () => {
@@ -49,7 +50,7 @@ const Login = () => {
         <p className={style.dontHaveAccount}>Não possui uma conta? <Link to={'/register'}>Registre-se!</Link></p>
       </form>
 
-      <div className={style.sideImage}>
+      <div style={{backgroundImage:`url(${wallpaperImage})`}} className={style.sideImage}>
 
       </div>
 

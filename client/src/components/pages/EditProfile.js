@@ -33,7 +33,6 @@ const Profile = () => {
   function userImageStateChange({target}){
     setPreview(target.files[0])
     setUser({ ...user, [target.name]: target.files[0] })
-    console.log(target.files)
   }
 
   async function changeUserData(event){

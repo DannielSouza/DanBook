@@ -4,7 +4,6 @@ import PostProfilePicture from './PostProfilePicture'
 
 const FollowsModal = ({followers, setFollowsModal}) => {
 
-
   function checkClick({target}){
     if(target.className === 'FollowsModal_container__d1GYL') setFollowsModal(false)
   }
