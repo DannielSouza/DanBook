@@ -16,7 +16,7 @@
 <br/>
 <br/>
 
--Registar e logar (usando autênticação via JWT);<br/>
+-Registar e logar (autênticação via JWT);<br/>
 -Editar informações de usúario como foto de perfil, email, senha, etc;<br/>
 -Criar, editar e excluir postagens;<br/>
 -Curtir e comentar publicações.
